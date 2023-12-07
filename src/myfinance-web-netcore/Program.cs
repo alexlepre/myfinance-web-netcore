@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace myfinance_web_netcore
 {
@@ -13,7 +8,16 @@ namespace myfinance_web_netcore
     {
         public static void Main(string[] args)
         {
+            
             CreateHostBuilder(args).Build().Run();
+
+           
+            // var app = builder.Build();
+
+            // if (!app.Environment.IsDevelopment()){
+            //     app.UseExceptionHandler("/Home/Error");
+            //     app.UseHsts();
+            // }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -22,5 +26,7 @@ namespace myfinance_web_netcore
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
+            
     }
 }

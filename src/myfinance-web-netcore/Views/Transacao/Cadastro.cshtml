@@ -1,0 +1,83 @@
+@model TransacaoModel
+
+@{
+    ViewData["Title"] = "Registro de Transação";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-controller="Transacao" asp-action="Cadastrar" method="post">
+
+<div class="container">
+
+<div class="mb-3">
+    <label class="form-label">Data</label>
+    <input type="date" id="txtData" class="form-control" asp-for="Data" />
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Valor</label>
+    <input type="number" id="txtValor" class="form-control" asp-for="Valor" />
+</div>
+
+@* <div class="mb-3">
+    <label class="form-label">Item Plano Conta</label>
+     @Html.DropDownListFor(m => m.PlanoContaId, Model.PlanoContas, new { @class = "form-control" })
+            <div id="lblTipo" class="form-label"></div>
+            <input type=text id="txtTipo" class="form-control" asp-for="Tipo" />
+
+</div> *@
+
+<div class="mb-3">
+    <label class="form-label">Item Plano Conta</label>
+     @Html.DropDownListFor(m => m.PlanoContaId, Model.PlanoContas, new
+     {
+        @class = "form-control"
+     })
+     <div id="lblTipo" class="form-label"></div>
+     <input type=text id="txtTipo" class="form-control" asp-for="Tipo" />
+</div>
+
+        @{
+            foreach (var item in (List<PlanoContaModel>)Model.ListaPlanoConta)
+            {
+                <tr>
+                    <div id ="@item.Tipo" hidden>@item.Descricao</div>
+                </tr>
+            }
+        }
+
+<div class="mb-3">
+    <label class="form-label">Histórico</label>
+    <input type="hidden" id="txtId" class="form-control" asp-for="Id" />
+    <input type="text" id="txtNome" class="form-control" asp-for="Historico" />
+</div>
+
+    <div class="mb-3">
+      <label>@Html.RadioButtonFor(m => m.Tipo, "D")Despesa</label>
+      <label>@Html.RadioButtonFor(m => m.Tipo, "R")Receita</label>
+    </div>
+
+<div class="mb-3">
+    <button type="submit" class="btn btn-primary btn-lg">Salvar</button>
+    <button type="button" class="btn btn-secondary btn-lg" onclick="Voltar()">Cancelar</button>
+</div>
+
+</div>
+
+</form>
+
+<script>
+    function Voltar(){
+        window.location.href = "../Transacao/Index"
+    }
+
+     var select = document.getElementById('PlanoContaId');
+        select.addEventListener('change', selecionaItemPlanoConta);
+
+        function selecionaItemPlanoConta() {
+            var tipoSelecionado = document.getElementsById(select.value);
+            document.getElementsById("lblTipo").innerHTML = tipoSelecionado.innerHTML;
+            document.getElementsById("txtTipo").value = tipoSelecionado.innerHTML;
+        }
+</script>

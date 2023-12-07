@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using myfinance_web_netcore.Infrastructure;
+using myfinance_web_netcore.Mappers;
+using myfinance_web_netcore.Services;
 
 namespace myfinance_web_netcore
 {
@@ -24,6 +22,11 @@ namespace myfinance_web_netcore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<MyFinanceDbContext>();
+            services.AddAutoMapper(AssemblyUtil.GetCurrentAssemblies());
+            services.AddTransient<IPlanoContaService, PlanoContaService>();
+            services.AddTransient<ITransacaoService, TransacaoService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
