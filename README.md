@@ -10,7 +10,7 @@
 
 ##Banco de Dados
 - SQLServer
-- Script encontrado no caminho src/script.sql
+- Script encontrado no caminho src/Infrastructure/script.sql
 
 ##Build
 - Pasta /src
